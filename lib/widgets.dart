@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:what_todo/database_helper.dart';
 
 class TaskCardWidget extends StatelessWidget {
   final String title;
   final String desc;
+  final int id;
 
-  TaskCardWidget({this.title, this.desc});
+  TaskCardWidget({this.title, this.desc,this.id});
+  DatabaseHelper _dbHelper = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +24,56 @@ class TaskCardWidget extends StatelessWidget {
         color: Colors.black12,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(
-            title ?? "(Unnamed Task)",
-            style: TextStyle(
-              color: Color(0xFF211551),
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title ?? "(Unnamed Task)",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 10.0,
+                  ),
+                  child: Text(
+                    desc ?? "No Description Added",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      height: 1.5,
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 10.0,
-            ),
-            child: Text(
-              desc ?? "No Description Added",
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Color(0xFF86829D),
-                height: 1.5,
+          Column(children: [
+            GestureDetector(
+              onTap: () async {
+                if(id != 0) {
+                  await _dbHelper.deleteTask(id);
+                }
+              },
+              child: Container(
+                width: 50.0,
+                height: 50.0,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Image(
+                  image: AssetImage(
+                    "assets/images/delete_icon.png",
+                  ),
+                ),
               ),
             ),
-          )
+          ],)
         ],
       ),
     );

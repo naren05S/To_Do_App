@@ -112,7 +112,6 @@ class _TaskpageState extends State<Taskpage> {
                             style: TextStyle(
                               fontSize: 26.0,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF211551),
                             ),
                           ),
                         )
@@ -236,7 +235,7 @@ class _TaskpageState extends State<Taskpage> {
                   )
                 ],
               ),
-              Visibility(
+              /*Visibility(
                 visible: _contentVisile,
                 child: Positioned(
                   bottom: 24.0,
@@ -263,7 +262,7 @@ class _TaskpageState extends State<Taskpage> {
                     ),
                   ),
                 ),
-              )
+              )*/
             ],
           ),
         ),
